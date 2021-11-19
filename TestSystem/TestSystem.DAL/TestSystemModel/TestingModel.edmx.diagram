@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6c71050d65e045debac23184b212decc" Name="Diagram1">
+        <EntityTypeShape EntityType="TestSystemDBModel.Answer" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestSystemDBModel.Discipline" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestSystemDBModel.MaterialsInfo" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestSystemDBModel.Photo" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestSystemDBModel.QuestionAnswer" Width="1.5" PointX="8.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestSystemDBModel.Question" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestSystemDBModel.Result" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestSystemDBModel.TestLanguage" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestSystemDBModel.TestMaterial" Width="1.5" PointX="6" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestSystemDBModel.Test" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestSystemDBModel.Theme" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <AssociationConnector Association="TestSystemDBModel.FK__Answers__Discipl__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="TestSystemDBModel.FK__Answers__ThemeId__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="TestSystemDBModel.FK__QuestionA__Answe__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="TestSystemDBModel.FK__Questions__Disci__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="TestSystemDBModel.FK__TestMater__Disci__0E6E26BF" ManuallyRouted="false" />
+        <AssociationConnector Association="TestSystemDBModel.FK__Tests__Disciplin__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="TestSystemDBModel.FK__Materials__Photo__09A971A2" ManuallyRouted="false" />
+        <AssociationConnector Association="TestSystemDBModel.FK__TestMater__Infor__10566F31" ManuallyRouted="false" />
+        <AssociationConnector Association="TestSystemDBModel.FK__QuestionA__Quest__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="TestSystemDBModel.FK__QuestionA__Testi__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="TestSystemDBModel.FK__Questions__Theme__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="TestSystemDBModel.FK__Results__TestId__1AD3FDA4" ManuallyRouted="false" />
+        <AssociationConnector Association="TestSystemDBModel.FK__TestMater__Langu__0F624AF8" ManuallyRouted="false" />
+        <AssociationConnector Association="TestSystemDBModel.FK__Tests__LanguageI__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="TestSystemDBModel.FK__TestMater__Theme__0D7A0286" ManuallyRouted="false" />
+        <AssociationConnector Association="TestSystemDBModel.FK__Tests__ThemeId__398D8EEE" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

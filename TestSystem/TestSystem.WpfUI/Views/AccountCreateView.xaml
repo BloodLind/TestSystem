@@ -1,0 +1,114 @@
+﻿<local:CustomView x:Class="TestSystem.WpfUI.Views.AccountCreateView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:res ="clr-namespace:TestSystem.WpfUI.Properties"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TestSystem.WpfUI.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                  mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+    <DockPanel>
+             <!--#region TitleBar-->
+        <materialDesign:Card DockPanel.Dock="Top" MouseDown="Card_MouseDown" MaxHeight="40">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Margin ="15,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Style="{DynamicResource MaterialDesignIconButton}"
+                            Width="40"
+                            Height="40"
+                            Command="{Binding CloseCommand}">
+                        <materialDesign:PackIcon Kind="ArrowBackCircle" Width="40" Height="40"/>
+                    </Button>
+                </StackPanel>
+
+
+                <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Margin="5" FontSize="15" Click="ClickMinimizeWindow" MaxHeight="35">
+                        <materialDesign:PackIcon Kind="WindowMinimize" />
+                    </Button>
+                    <Button Margin="5" FontSize="15" Click="ClickMaximizeWindow" MaxHeight="35">
+                        <materialDesign:PackIcon Kind="WindowMaximize" />
+                    </Button>
+                    <Button Margin="5" Click="ClickClose" MaxHeight="35">
+                        <materialDesign:PackIcon Kind="CloseThick" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
+        <!--#endregion-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                
+            </Grid.RowDefinitions>
+            <materialDesign:Card Grid.Row="0" Padding="15" Margin="150,5,150,5" UniformCornerRadius="15">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="{x:Static res:Resources.Login}" 
+                                   Style="{DynamicResource MaterialDesignSubtitle1TextBlock}"
+                                   Foreground="{DynamicResource PrimaryHueDarkBrush}" 
+                                   Margin="0 0 10 0"></TextBlock>
+                    <TextBox MinWidth="150" Style="{DynamicResource MaterialDesignTextBox}" 
+                             Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             FontSize="14"
+                             Foreground="{DynamicResource MaterialDesignLightForeground}"></TextBox>
+                    </StackPanel>
+                </materialDesign:Card>
+            <materialDesign:Card Grid.Row="1" Padding="15" Margin="150,5,150,5" UniformCornerRadius="15">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="{x:Static res:Resources.Password}" 
+                                   Style="{DynamicResource MaterialDesignSubtitle1TextBlock}"
+                                   Foreground="{DynamicResource PrimaryHueDarkBrush}" 
+                                   Margin="0 0 10 0"></TextBlock>
+                    <PasswordBox MinWidth="150" 
+                                 FontSize="14"
+                                 Style="{DynamicResource MaterialDesignPasswordBox}" 
+                                 PasswordChanged="PasswordBox_PasswordChanged"
+                                 Foreground="{DynamicResource MaterialDesignLightForeground}"></PasswordBox>
+                </StackPanel>
+            </materialDesign:Card>
+            
+            <materialDesign:Card Grid.Row="2" Margin="150,0,150,10" Padding="10" UniformCornerRadius="15">
+                <Grid VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0"  
+                            Margin="10" 
+                            Content="{x:Static res:Resources.Authorizate}" 
+                            Foreground="{DynamicResource MaterialDesignDarkForeground}"
+                            Command="{Binding LoginCommand}"></Button>
+                    <Button Grid.Column="1" 
+                            Margin="10" 
+                            Content="{x:Static res:Resources.Create_new}" 
+                            Foreground="{DynamicResource MaterialDesignDarkForeground}"
+                            Command="{Binding CreateNewCommand}">
+                    </Button>
+                </Grid>
+            </materialDesign:Card>
+            <StackPanel Grid.Row="4" VerticalAlignment="Center">
+                <ProgressBar Margin="15" Height="5" Value="{Binding LoadValue}"
+                    IsIndeterminate="{Binding IsIndeterminate}"
+                             FlowDirection="RightToLeft"
+                             Foreground="#D000FF"
+                             Background="{DynamicResource PrimaryHueDarkBrush}"/>
+                <ProgressBar Margin="15" Height="5" Value="{Binding LoadValue}"
+                        IsIndeterminate="{Binding IsIndeterminate}"
+                             Foreground="#8700D9"
+                             Background="{DynamicResource PrimaryHueMidBrush}"/>
+                <ProgressBar Margin="15" Height="5" Value="{Binding LoadValue}"
+                         IsIndeterminate="{Binding IsIndeterminate}" FlowDirection="RightToLeft"
+                             Foreground="#5600BF" />
+                
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</local:CustomView>

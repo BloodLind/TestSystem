@@ -1,0 +1,137 @@
+﻿<local:CustomView x:Class="TestSystem.WpfUI.Views.CreateAccountAllDataView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:res="clr-namespace:TestSystem.WpfUI.Properties"
+             xmlns:local="clr-namespace:TestSystem.WpfUI.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+    <DockPanel>
+        <DockPanel.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To ="1" Duration="0:0:0.2"></DoubleAnimation>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </DockPanel.Triggers>
+        <!--#region TitleBar-->
+        <materialDesign:Card DockPanel.Dock="Top" MouseDown="Card_MouseDown" MaxHeight="40">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Margin ="15,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Style="{DynamicResource MaterialDesignIconButton}"
+                            Width="40"
+                            Height="40"
+                            Command="{Binding CloseCommand}">
+                        <materialDesign:PackIcon Kind="ArrowBackCircle" Width="40" Height="40"/>
+                    </Button>
+                </StackPanel>
+
+
+                <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Margin="5" FontSize="15" Click="ClickMinimizeWindow" MaxHeight="35">
+                        <materialDesign:PackIcon Kind="WindowMinimize" />
+                    </Button>
+                    <Button Margin="5" FontSize="15" Click="ClickMaximizeWindow" MaxHeight="35">
+                        <materialDesign:PackIcon Kind="WindowMaximize" />
+                    </Button>
+                    <Button Margin="5" Click="ClickClose" MaxHeight="35">
+                        <materialDesign:PackIcon Kind="CloseThick" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
+        <!--#endregion-->
+
+        <Grid>
+            
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <materialDesign:Card Grid.Row="0" Grid.Column="1" Padding="15" UniformCornerRadius="5">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="{x:Static res:Resources.Login}" Margin="10"  Style="{DynamicResource MaterialDesignSubtitle1TextBlock}"></TextBlock>
+                        <TextBox FontSize="14" Text="{Binding Login}" Style="{DynamicResource MaterialDesignTextBox}" Margin="5" MinWidth="150"></TextBox>
+                    </StackPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Grid.Row="1" Grid.Column="1" Padding="15" UniformCornerRadius="5">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="{x:Static res:Resources.Password}" Margin="10"  Style="{DynamicResource MaterialDesignSubtitle1TextBlock}"></TextBlock>
+                        <PasswordBox Style="{DynamicResource MaterialDesignPasswordBox}" 
+                                     Margin="5"
+                                     MinWidth="150"
+                                     FontSize="14"
+                                     PasswordChanged="PasswordBox_PasswordChanged">
+                            
+                        </PasswordBox>
+                    </StackPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Grid.Row="2" Grid.Column="1" Padding="15" UniformCornerRadius="5">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="{x:Static res:Resources.Firstname}" Margin="10 10 20 10"  Style="{DynamicResource MaterialDesignSubtitle1TextBlock}"></TextBlock>
+                        <TextBox  FontSize="14" Text="{Binding Firstname}" Style="{DynamicResource MaterialDesignTextBox}" Margin="20 5 5 5" MinWidth="150"></TextBox>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <materialDesign:Card Grid.Row="3" Grid.Column="1" Padding="15" UniformCornerRadius="5">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="{x:Static res:Resources.Secondname}" Margin="10"  Style="{DynamicResource MaterialDesignSubtitle1TextBlock}"></TextBlock>
+                        <TextBox FontSize="14" Text="{Binding Secondname}" Style="{DynamicResource MaterialDesignTextBox}" Margin="5" MinWidth="150"></TextBox>
+                    </StackPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Grid.Row="4" Grid.Column="1" Padding="15" UniformCornerRadius="5">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="{x:Static res:Resources.Fathername}" Margin="10"  Style="{DynamicResource MaterialDesignSubtitle1TextBlock}"></TextBlock>
+                        <TextBox FontSize="14" Text="{Binding Fathername}" Style="{DynamicResource MaterialDesignTextBox}" Margin="5" MinWidth="150"></TextBox>
+                    </StackPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Grid.Row="5" Grid.Column="1" Padding="15" UniformCornerRadius="5">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Margin="5" Style="{DynamicResource MaterialDesignFlatLightBgButton}" 
+                                Content="{x:Static res:Resources.Create_new}"
+                                Command="{Binding CreateAccountCommand}"></Button>
+
+                    </StackPanel>
+                </materialDesign:Card>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="0">
+                <ProgressBar Margin="15" Height="5" Value="{Binding LoadValue}" Orientation="Vertical"
+                    IsIndeterminate="{Binding IsIndeterminate}"
+                             FlowDirection="RightToLeft"
+                             Foreground="{DynamicResource SecondaryHueLightBrush}"
+                             Background="{DynamicResource PrimaryHueDarkBrush}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
+                <ProgressBar Margin="15" Height="5" Value="{Binding LoadValue}" Orientation="Vertical"
+                    IsIndeterminate="{Binding IsIndeterminate}"
+                             FlowDirection="RightToLeft"
+                             Foreground="{DynamicResource SecondaryHueLightBrush}"
+                             Background="{DynamicResource PrimaryHueDarkBrush}"/>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+    
+    
+</local:CustomView>

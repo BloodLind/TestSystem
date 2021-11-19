@@ -1,0 +1,1012 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище TestSystemDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Answers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnswerData" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="ThemeId" Type="int" />
+          <Property Name="DisciplineId" Type="int" />
+        </EntityType>
+        <EntityType Name="Disciplines">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MaterialsInfos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PhotoId" Type="int" />
+          <Property Name="Information" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Photos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Picture" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuestionAnswer">
+          <Key>
+            <PropertyRef Name="Testid" />
+            <PropertyRef Name="QuestionId" />
+            <PropertyRef Name="AnswerId" />
+          </Key>
+          <Property Name="Testid" Type="int" Nullable="false" />
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="AnswerId" Type="int" Nullable="false" />
+          <Property Name="IsAnswerCorrect" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionData" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="ThemeId" Type="int" />
+          <Property Name="DisciplineId" Type="int" />
+        </EntityType>
+        <EntityType Name="Results">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestId" Type="int" />
+          <Property Name="CorrectPercent" Type="int" Nullable="false" />
+          <Property Name="Points" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="TestLanguage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TestMaterials">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ThemeId" Type="int" />
+          <Property Name="DisciplineId" Type="int" />
+          <Property Name="LanguageId" Type="int" />
+          <Property Name="InformationId" Type="int" />
+        </EntityType>
+        <EntityType Name="Tests">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsArchive" Type="bit" Nullable="false" />
+          <Property Name="ThemeId" Type="int" />
+          <Property Name="DisciplineId" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="LanguageId" Type="int" />
+        </EntityType>
+        <EntityType Name="Themes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Answers__Discipl__31EC6D26">
+          <End Role="Disciplines" Type="Self.Disciplines" Multiplicity="0..1" />
+          <End Role="Answers" Type="Self.Answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplines">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Answers">
+              <PropertyRef Name="DisciplineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Answers__ThemeId__30F848ED">
+          <End Role="Themes" Type="Self.Themes" Multiplicity="0..1" />
+          <End Role="Answers" Type="Self.Answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Themes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Answers">
+              <PropertyRef Name="ThemeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Materials__Photo__09A971A2">
+          <End Role="Photos" Type="Self.Photos" Multiplicity="0..1" />
+          <End Role="MaterialsInfos" Type="Self.MaterialsInfos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Photos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialsInfos">
+              <PropertyRef Name="PhotoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuestionA__Answe__3F466844">
+          <End Role="Answers" Type="Self.Answers" Multiplicity="1" />
+          <End Role="QuestionAnswer" Type="Self.QuestionAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Answers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuestionAnswer">
+              <PropertyRef Name="AnswerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuestionA__Quest__3E52440B">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="QuestionAnswer" Type="Self.QuestionAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuestionAnswer">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuestionA__Testi__3D5E1FD2">
+          <End Role="Tests" Type="Self.Tests" Multiplicity="1" />
+          <End Role="QuestionAnswer" Type="Self.QuestionAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tests">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuestionAnswer">
+              <PropertyRef Name="Testid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Questions__Disci__35BCFE0A">
+          <End Role="Disciplines" Type="Self.Disciplines" Multiplicity="0..1" />
+          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplines">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="DisciplineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Questions__Theme__34C8D9D1">
+          <End Role="Themes" Type="Self.Themes" Multiplicity="0..1" />
+          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Themes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="ThemeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Results__TestId__1AD3FDA4">
+          <End Role="Tests" Type="Self.Tests" Multiplicity="0..1" />
+          <End Role="Results" Type="Self.Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tests">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TestMater__Disci__0E6E26BF">
+          <End Role="Disciplines" Type="Self.Disciplines" Multiplicity="0..1" />
+          <End Role="TestMaterials" Type="Self.TestMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplines">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TestMaterials">
+              <PropertyRef Name="DisciplineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TestMater__Infor__10566F31">
+          <End Role="MaterialsInfos" Type="Self.MaterialsInfos" Multiplicity="0..1" />
+          <End Role="TestMaterials" Type="Self.TestMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialsInfos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TestMaterials">
+              <PropertyRef Name="InformationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TestMater__Langu__0F624AF8">
+          <End Role="TestLanguage" Type="Self.TestLanguage" Multiplicity="0..1" />
+          <End Role="TestMaterials" Type="Self.TestMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestLanguage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TestMaterials">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TestMater__Theme__0D7A0286">
+          <End Role="Themes" Type="Self.Themes" Multiplicity="0..1" />
+          <End Role="TestMaterials" Type="Self.TestMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Themes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TestMaterials">
+              <PropertyRef Name="ThemeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tests__Disciplin__3A81B327">
+          <End Role="Disciplines" Type="Self.Disciplines" Multiplicity="0..1" />
+          <End Role="Tests" Type="Self.Tests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplines">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tests">
+              <PropertyRef Name="DisciplineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tests__LanguageI__5812160E">
+          <End Role="TestLanguage" Type="Self.TestLanguage" Multiplicity="0..1" />
+          <End Role="Tests" Type="Self.Tests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestLanguage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tests">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tests__ThemeId__398D8EEE">
+          <End Role="Themes" Type="Self.Themes" Multiplicity="0..1" />
+          <End Role="Tests" Type="Self.Tests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Themes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tests">
+              <PropertyRef Name="ThemeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="CheckAuthorization" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="bit">
+          <Parameter Name="userLogin" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="userPassword" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="CreateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Firstname" Type="nvarchar" Mode="In" />
+          <Parameter Name="Secondname" Type="nvarchar" Mode="In" />
+          <Parameter Name="Fathername" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="CreateUserAuntifaction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="login" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="isAdmin" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="EditUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Secondname" Type="nvarchar" Mode="In" />
+          <Parameter Name="Fathername" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetUserByLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userLogin" Type="varchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Id" Type="int" />
+                <Property Name="Firstname" Type="nvarchar" MaxLength="500" />
+                <Property Name="Secondname" Type="nvarchar" MaxLength="500" />
+                <Property Name="Fathername" Type="nvarchar" MaxLength="500" />
+                <Property Name="ProfilePicture" Type="varbinary(max)" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="SetAdminForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="login" Type="varchar" Mode="In" />
+          <Parameter Name="adminStatment" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SetUserInfoForAuntification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="login" Type="varchar" Mode="In" />
+          <Parameter Name="userId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SetUserPhotoId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="PhotoId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="Хранилище TestSystemDBModelContainer">
+          <EntitySet Name="Answers" EntityType="Self.Answers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Disciplines" EntityType="Self.Disciplines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaterialsInfos" EntityType="Self.MaterialsInfos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Photos" EntityType="Self.Photos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionAnswer" EntityType="Self.QuestionAnswer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Results" EntityType="Self.Results" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestLanguage" EntityType="Self.TestLanguage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestMaterials" EntityType="Self.TestMaterials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tests" EntityType="Self.Tests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Themes" EntityType="Self.Themes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Answers__Discipl__31EC6D26" Association="Self.FK__Answers__Discipl__31EC6D26">
+            <End Role="Disciplines" EntitySet="Disciplines" />
+            <End Role="Answers" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Answers__ThemeId__30F848ED" Association="Self.FK__Answers__ThemeId__30F848ED">
+            <End Role="Themes" EntitySet="Themes" />
+            <End Role="Answers" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Materials__Photo__09A971A2" Association="Self.FK__Materials__Photo__09A971A2">
+            <End Role="Photos" EntitySet="Photos" />
+            <End Role="MaterialsInfos" EntitySet="MaterialsInfos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuestionA__Answe__3F466844" Association="Self.FK__QuestionA__Answe__3F466844">
+            <End Role="Answers" EntitySet="Answers" />
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuestionA__Quest__3E52440B" Association="Self.FK__QuestionA__Quest__3E52440B">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuestionA__Testi__3D5E1FD2" Association="Self.FK__QuestionA__Testi__3D5E1FD2">
+            <End Role="Tests" EntitySet="Tests" />
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Questions__Disci__35BCFE0A" Association="Self.FK__Questions__Disci__35BCFE0A">
+            <End Role="Disciplines" EntitySet="Disciplines" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Questions__Theme__34C8D9D1" Association="Self.FK__Questions__Theme__34C8D9D1">
+            <End Role="Themes" EntitySet="Themes" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Results__TestId__1AD3FDA4" Association="Self.FK__Results__TestId__1AD3FDA4">
+            <End Role="Tests" EntitySet="Tests" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TestMater__Disci__0E6E26BF" Association="Self.FK__TestMater__Disci__0E6E26BF">
+            <End Role="Disciplines" EntitySet="Disciplines" />
+            <End Role="TestMaterials" EntitySet="TestMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TestMater__Infor__10566F31" Association="Self.FK__TestMater__Infor__10566F31">
+            <End Role="MaterialsInfos" EntitySet="MaterialsInfos" />
+            <End Role="TestMaterials" EntitySet="TestMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TestMater__Langu__0F624AF8" Association="Self.FK__TestMater__Langu__0F624AF8">
+            <End Role="TestLanguage" EntitySet="TestLanguage" />
+            <End Role="TestMaterials" EntitySet="TestMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TestMater__Theme__0D7A0286" Association="Self.FK__TestMater__Theme__0D7A0286">
+            <End Role="Themes" EntitySet="Themes" />
+            <End Role="TestMaterials" EntitySet="TestMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tests__Disciplin__3A81B327" Association="Self.FK__Tests__Disciplin__3A81B327">
+            <End Role="Disciplines" EntitySet="Disciplines" />
+            <End Role="Tests" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tests__LanguageI__5812160E" Association="Self.FK__Tests__LanguageI__5812160E">
+            <End Role="TestLanguage" EntitySet="TestLanguage" />
+            <End Role="Tests" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tests__ThemeId__398D8EEE" Association="Self.FK__Tests__ThemeId__398D8EEE">
+            <End Role="Themes" EntitySet="Themes" />
+            <End Role="Tests" EntitySet="Tests" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestSystemDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="GetUserByLogin_Result">
+          <Property Name="Id" Type="Int32" />
+          <Property Name="Firstname" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Secondname" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Fathername" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ProfilePicture" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </ComplexType>
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnswerData" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ThemeId" Type="Int32" />
+          <Property Name="DisciplineId" Type="Int32" />
+          <NavigationProperty Name="Discipline" Relationship="Self.FK__Answers__Discipl__31EC6D26" FromRole="Answers" ToRole="Disciplines" />
+          <NavigationProperty Name="Theme" Relationship="Self.FK__Answers__ThemeId__30F848ED" FromRole="Answers" ToRole="Themes" />
+          <NavigationProperty Name="QuestionAnswers" Relationship="Self.FK__QuestionA__Answe__3F466844" FromRole="Answers" ToRole="QuestionAnswer" />
+        </EntityType>
+        <EntityType Name="Discipline">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Answers" Relationship="Self.FK__Answers__Discipl__31EC6D26" FromRole="Disciplines" ToRole="Answers" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__Disci__35BCFE0A" FromRole="Disciplines" ToRole="Questions" />
+          <NavigationProperty Name="TestMaterials" Relationship="Self.FK__TestMater__Disci__0E6E26BF" FromRole="Disciplines" ToRole="TestMaterials" />
+          <NavigationProperty Name="Tests" Relationship="Self.FK__Tests__Disciplin__3A81B327" FromRole="Disciplines" ToRole="Tests" />
+        </EntityType>
+        <EntityType Name="MaterialsInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PhotoId" Type="Int32" />
+          <Property Name="Information" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Photo" Relationship="Self.FK__Materials__Photo__09A971A2" FromRole="MaterialsInfos" ToRole="Photos" />
+          <NavigationProperty Name="TestMaterials" Relationship="Self.FK__TestMater__Infor__10566F31" FromRole="MaterialsInfos" ToRole="TestMaterials" />
+        </EntityType>
+        <EntityType Name="Photo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="MaterialsInfos" Relationship="Self.FK__Materials__Photo__09A971A2" FromRole="Photos" ToRole="MaterialsInfos" />
+        </EntityType>
+        <EntityType Name="QuestionAnswer">
+          <Key>
+            <PropertyRef Name="Testid" />
+            <PropertyRef Name="QuestionId" />
+            <PropertyRef Name="AnswerId" />
+          </Key>
+          <Property Name="Testid" Type="Int32" Nullable="false" />
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="AnswerId" Type="Int32" Nullable="false" />
+          <Property Name="IsAnswerCorrect" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Answer" Relationship="Self.FK__QuestionA__Answe__3F466844" FromRole="QuestionAnswer" ToRole="Answers" />
+          <NavigationProperty Name="Question" Relationship="Self.FK__QuestionA__Quest__3E52440B" FromRole="QuestionAnswer" ToRole="Questions" />
+          <NavigationProperty Name="Test" Relationship="Self.FK__QuestionA__Testi__3D5E1FD2" FromRole="QuestionAnswer" ToRole="Tests" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionData" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ThemeId" Type="Int32" />
+          <Property Name="DisciplineId" Type="Int32" />
+          <NavigationProperty Name="Discipline" Relationship="Self.FK__Questions__Disci__35BCFE0A" FromRole="Questions" ToRole="Disciplines" />
+          <NavigationProperty Name="QuestionAnswers" Relationship="Self.FK__QuestionA__Quest__3E52440B" FromRole="Questions" ToRole="QuestionAnswer" />
+          <NavigationProperty Name="Theme" Relationship="Self.FK__Questions__Theme__34C8D9D1" FromRole="Questions" ToRole="Themes" />
+        </EntityType>
+        <EntityType Name="Result">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestId" Type="Int32" />
+          <Property Name="CorrectPercent" Type="Int32" Nullable="false" />
+          <Property Name="Points" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="Test" Relationship="Self.FK__Results__TestId__1AD3FDA4" FromRole="Results" ToRole="Tests" />
+        </EntityType>
+        <EntityType Name="TestLanguage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TestMaterials" Relationship="Self.FK__TestMater__Langu__0F624AF8" FromRole="TestLanguage" ToRole="TestMaterials" />
+          <NavigationProperty Name="Tests" Relationship="Self.FK__Tests__LanguageI__5812160E" FromRole="TestLanguage" ToRole="Tests" />
+        </EntityType>
+        <EntityType Name="TestMaterial">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ThemeId" Type="Int32" />
+          <Property Name="DisciplineId" Type="Int32" />
+          <Property Name="LanguageId" Type="Int32" />
+          <Property Name="InformationId" Type="Int32" />
+          <NavigationProperty Name="Discipline" Relationship="Self.FK__TestMater__Disci__0E6E26BF" FromRole="TestMaterials" ToRole="Disciplines" />
+          <NavigationProperty Name="MaterialsInfo" Relationship="Self.FK__TestMater__Infor__10566F31" FromRole="TestMaterials" ToRole="MaterialsInfos" />
+          <NavigationProperty Name="TestLanguage" Relationship="Self.FK__TestMater__Langu__0F624AF8" FromRole="TestMaterials" ToRole="TestLanguage" />
+          <NavigationProperty Name="Theme" Relationship="Self.FK__TestMater__Theme__0D7A0286" FromRole="TestMaterials" ToRole="Themes" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsArchive" Type="Boolean" Nullable="false" />
+          <Property Name="ThemeId" Type="Int32" />
+          <Property Name="DisciplineId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LanguageId" Type="Int32" />
+          <NavigationProperty Name="Discipline" Relationship="Self.FK__Tests__Disciplin__3A81B327" FromRole="Tests" ToRole="Disciplines" />
+          <NavigationProperty Name="QuestionAnswers" Relationship="Self.FK__QuestionA__Testi__3D5E1FD2" FromRole="Tests" ToRole="QuestionAnswer" />
+          <NavigationProperty Name="Results" Relationship="Self.FK__Results__TestId__1AD3FDA4" FromRole="Tests" ToRole="Results" />
+          <NavigationProperty Name="TestLanguage" Relationship="Self.FK__Tests__LanguageI__5812160E" FromRole="Tests" ToRole="TestLanguage" />
+          <NavigationProperty Name="Theme" Relationship="Self.FK__Tests__ThemeId__398D8EEE" FromRole="Tests" ToRole="Themes" />
+        </EntityType>
+        <EntityType Name="Theme">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Answers" Relationship="Self.FK__Answers__ThemeId__30F848ED" FromRole="Themes" ToRole="Answers" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__Theme__34C8D9D1" FromRole="Themes" ToRole="Questions" />
+          <NavigationProperty Name="TestMaterials" Relationship="Self.FK__TestMater__Theme__0D7A0286" FromRole="Themes" ToRole="TestMaterials" />
+          <NavigationProperty Name="Tests" Relationship="Self.FK__Tests__ThemeId__398D8EEE" FromRole="Themes" ToRole="Tests" />
+        </EntityType>
+        <Association Name="FK__Answers__Discipl__31EC6D26">
+          <End Role="Disciplines" Type="Self.Discipline" Multiplicity="0..1" />
+          <End Role="Answers" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplines">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Answers">
+              <PropertyRef Name="DisciplineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Answers__ThemeId__30F848ED">
+          <End Role="Themes" Type="Self.Theme" Multiplicity="0..1" />
+          <End Role="Answers" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Themes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Answers">
+              <PropertyRef Name="ThemeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuestionA__Answe__3F466844">
+          <End Role="Answers" Type="Self.Answer" Multiplicity="1" />
+          <End Role="QuestionAnswer" Type="Self.QuestionAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Answers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuestionAnswer">
+              <PropertyRef Name="AnswerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Questions__Disci__35BCFE0A">
+          <End Role="Disciplines" Type="Self.Discipline" Multiplicity="0..1" />
+          <End Role="Questions" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplines">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="DisciplineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TestMater__Disci__0E6E26BF">
+          <End Role="Disciplines" Type="Self.Discipline" Multiplicity="0..1" />
+          <End Role="TestMaterials" Type="Self.TestMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplines">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TestMaterials">
+              <PropertyRef Name="DisciplineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tests__Disciplin__3A81B327">
+          <End Role="Disciplines" Type="Self.Discipline" Multiplicity="0..1" />
+          <End Role="Tests" Type="Self.Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplines">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tests">
+              <PropertyRef Name="DisciplineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Materials__Photo__09A971A2">
+          <End Role="Photos" Type="Self.Photo" Multiplicity="0..1" />
+          <End Role="MaterialsInfos" Type="Self.MaterialsInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Photos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialsInfos">
+              <PropertyRef Name="PhotoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TestMater__Infor__10566F31">
+          <End Role="MaterialsInfos" Type="Self.MaterialsInfo" Multiplicity="0..1" />
+          <End Role="TestMaterials" Type="Self.TestMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialsInfos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TestMaterials">
+              <PropertyRef Name="InformationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuestionA__Quest__3E52440B">
+          <End Role="Questions" Type="Self.Question" Multiplicity="1" />
+          <End Role="QuestionAnswer" Type="Self.QuestionAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuestionAnswer">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuestionA__Testi__3D5E1FD2">
+          <End Role="Tests" Type="Self.Test" Multiplicity="1" />
+          <End Role="QuestionAnswer" Type="Self.QuestionAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tests">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuestionAnswer">
+              <PropertyRef Name="Testid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Questions__Theme__34C8D9D1">
+          <End Role="Themes" Type="Self.Theme" Multiplicity="0..1" />
+          <End Role="Questions" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Themes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="ThemeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Results__TestId__1AD3FDA4">
+          <End Role="Tests" Type="Self.Test" Multiplicity="0..1" />
+          <End Role="Results" Type="Self.Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tests">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TestMater__Langu__0F624AF8">
+          <End Role="TestLanguage" Type="Self.TestLanguage" Multiplicity="0..1" />
+          <End Role="TestMaterials" Type="Self.TestMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestLanguage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TestMaterials">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tests__LanguageI__5812160E">
+          <End Role="TestLanguage" Type="Self.TestLanguage" Multiplicity="0..1" />
+          <End Role="Tests" Type="Self.Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestLanguage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tests">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TestMater__Theme__0D7A0286">
+          <End Role="Themes" Type="Self.Theme" Multiplicity="0..1" />
+          <End Role="TestMaterials" Type="Self.TestMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Themes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TestMaterials">
+              <PropertyRef Name="ThemeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tests__ThemeId__398D8EEE">
+          <End Role="Themes" Type="Self.Theme" Multiplicity="0..1" />
+          <End Role="Tests" Type="Self.Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Themes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tests">
+              <PropertyRef Name="ThemeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestSystemDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Answers" EntityType="Self.Answer" />
+          <EntitySet Name="Disciplines" EntityType="Self.Discipline" />
+          <EntitySet Name="MaterialsInfos" EntityType="Self.MaterialsInfo" />
+          <EntitySet Name="Photos" EntityType="Self.Photo" />
+          <EntitySet Name="QuestionAnswers" EntityType="Self.QuestionAnswer" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="Results" EntityType="Self.Result" />
+          <EntitySet Name="TestLanguages" EntityType="Self.TestLanguage" />
+          <EntitySet Name="TestMaterials" EntityType="Self.TestMaterial" />
+          <EntitySet Name="Tests" EntityType="Self.Test" />
+          <EntitySet Name="Themes" EntityType="Self.Theme" />
+          <AssociationSet Name="FK__Answers__Discipl__31EC6D26" Association="Self.FK__Answers__Discipl__31EC6D26">
+            <End Role="Disciplines" EntitySet="Disciplines" />
+            <End Role="Answers" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Answers__ThemeId__30F848ED" Association="Self.FK__Answers__ThemeId__30F848ED">
+            <End Role="Themes" EntitySet="Themes" />
+            <End Role="Answers" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuestionA__Answe__3F466844" Association="Self.FK__QuestionA__Answe__3F466844">
+            <End Role="Answers" EntitySet="Answers" />
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Questions__Disci__35BCFE0A" Association="Self.FK__Questions__Disci__35BCFE0A">
+            <End Role="Disciplines" EntitySet="Disciplines" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TestMater__Disci__0E6E26BF" Association="Self.FK__TestMater__Disci__0E6E26BF">
+            <End Role="Disciplines" EntitySet="Disciplines" />
+            <End Role="TestMaterials" EntitySet="TestMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tests__Disciplin__3A81B327" Association="Self.FK__Tests__Disciplin__3A81B327">
+            <End Role="Disciplines" EntitySet="Disciplines" />
+            <End Role="Tests" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Materials__Photo__09A971A2" Association="Self.FK__Materials__Photo__09A971A2">
+            <End Role="Photos" EntitySet="Photos" />
+            <End Role="MaterialsInfos" EntitySet="MaterialsInfos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TestMater__Infor__10566F31" Association="Self.FK__TestMater__Infor__10566F31">
+            <End Role="MaterialsInfos" EntitySet="MaterialsInfos" />
+            <End Role="TestMaterials" EntitySet="TestMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuestionA__Quest__3E52440B" Association="Self.FK__QuestionA__Quest__3E52440B">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuestionA__Testi__3D5E1FD2" Association="Self.FK__QuestionA__Testi__3D5E1FD2">
+            <End Role="Tests" EntitySet="Tests" />
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Questions__Theme__34C8D9D1" Association="Self.FK__Questions__Theme__34C8D9D1">
+            <End Role="Themes" EntitySet="Themes" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Results__TestId__1AD3FDA4" Association="Self.FK__Results__TestId__1AD3FDA4">
+            <End Role="Tests" EntitySet="Tests" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TestMater__Langu__0F624AF8" Association="Self.FK__TestMater__Langu__0F624AF8">
+            <End Role="TestLanguage" EntitySet="TestLanguages" />
+            <End Role="TestMaterials" EntitySet="TestMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tests__LanguageI__5812160E" Association="Self.FK__Tests__LanguageI__5812160E">
+            <End Role="TestLanguage" EntitySet="TestLanguages" />
+            <End Role="Tests" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TestMater__Theme__0D7A0286" Association="Self.FK__TestMater__Theme__0D7A0286">
+            <End Role="Themes" EntitySet="Themes" />
+            <End Role="TestMaterials" EntitySet="TestMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tests__ThemeId__398D8EEE" Association="Self.FK__Tests__ThemeId__398D8EEE">
+            <End Role="Themes" EntitySet="Themes" />
+            <End Role="Tests" EntitySet="Tests" />
+          </AssociationSet>
+          <FunctionImport Name="GetUserByLogin" IsComposable="true" ReturnType="Collection(TestSystemDBModel.GetUserByLogin_Result)">
+          <Parameter Name="userLogin" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CreateUser">
+            <Parameter Name="Firstname" Mode="In" Type="String" />
+            <Parameter Name="Secondname" Mode="In" Type="String" />
+            <Parameter Name="Fathername" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CreateUserAuntifaction">
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="isAdmin" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="EditUser">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="Secondname" Mode="In" Type="String" />
+            <Parameter Name="Fathername" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SetUserInfoForAuntification">
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SetUserPhotoId">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="PhotoId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SetAdminForUser">
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="adminStatment" Mode="In" Type="Boolean" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TestSystemDBModelContainer" CdmEntityContainer="TestSystemDBEntities">
+          <EntitySetMapping Name="Answers">
+            <EntityTypeMapping TypeName="TestSystemDBModel.Answer">
+              <MappingFragment StoreEntitySet="Answers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AnswerData" ColumnName="AnswerData" />
+                <ScalarProperty Name="ThemeId" ColumnName="ThemeId" />
+                <ScalarProperty Name="DisciplineId" ColumnName="DisciplineId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Disciplines">
+            <EntityTypeMapping TypeName="TestSystemDBModel.Discipline">
+              <MappingFragment StoreEntitySet="Disciplines">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaterialsInfos">
+            <EntityTypeMapping TypeName="TestSystemDBModel.MaterialsInfo">
+              <MappingFragment StoreEntitySet="MaterialsInfos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PhotoId" ColumnName="PhotoId" />
+                <ScalarProperty Name="Information" ColumnName="Information" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Photos">
+            <EntityTypeMapping TypeName="TestSystemDBModel.Photo">
+              <MappingFragment StoreEntitySet="Photos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionAnswers">
+            <EntityTypeMapping TypeName="TestSystemDBModel.QuestionAnswer">
+              <MappingFragment StoreEntitySet="QuestionAnswer">
+                <ScalarProperty Name="Testid" ColumnName="Testid" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+                <ScalarProperty Name="IsAnswerCorrect" ColumnName="IsAnswerCorrect" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="TestSystemDBModel.Question">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="QuestionData" ColumnName="QuestionData" />
+                <ScalarProperty Name="ThemeId" ColumnName="ThemeId" />
+                <ScalarProperty Name="DisciplineId" ColumnName="DisciplineId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Results">
+            <EntityTypeMapping TypeName="TestSystemDBModel.Result">
+              <MappingFragment StoreEntitySet="Results">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
+                <ScalarProperty Name="CorrectPercent" ColumnName="CorrectPercent" />
+                <ScalarProperty Name="Points" ColumnName="Points" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestLanguages">
+            <EntityTypeMapping TypeName="TestSystemDBModel.TestLanguage">
+              <MappingFragment StoreEntitySet="TestLanguage">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestMaterials">
+            <EntityTypeMapping TypeName="TestSystemDBModel.TestMaterial">
+              <MappingFragment StoreEntitySet="TestMaterials">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ThemeId" ColumnName="ThemeId" />
+                <ScalarProperty Name="DisciplineId" ColumnName="DisciplineId" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="InformationId" ColumnName="InformationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tests">
+            <EntityTypeMapping TypeName="TestSystemDBModel.Test">
+              <MappingFragment StoreEntitySet="Tests">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IsArchive" ColumnName="IsArchive" />
+                <ScalarProperty Name="ThemeId" ColumnName="ThemeId" />
+                <ScalarProperty Name="DisciplineId" ColumnName="DisciplineId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Themes">
+            <EntityTypeMapping TypeName="TestSystemDBModel.Theme">
+              <MappingFragment StoreEntitySet="Themes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="Хранилище TestSystemDBModel.GetUserByLogin" FunctionImportName="GetUserByLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TestSystemDBModel.GetUserByLogin_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Secondname" ColumnName="Secondname" />
+                <ScalarProperty Name="Fathername" ColumnName="Fathername" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CreateUser" FunctionName="Хранилище TestSystemDBModel.CreateUser" />
+          <FunctionImportMapping FunctionImportName="CreateUserAuntifaction" FunctionName="Хранилище TestSystemDBModel.CreateUserAuntifaction" />
+          <FunctionImportMapping FunctionImportName="EditUser" FunctionName="Хранилище TestSystemDBModel.EditUser" />
+          <FunctionImportMapping FunctionImportName="SetUserInfoForAuntification" FunctionName="Хранилище TestSystemDBModel.SetUserInfoForAuntification" />
+          <FunctionImportMapping FunctionImportName="SetUserPhotoId" FunctionName="Хранилище TestSystemDBModel.SetUserPhotoId" />
+          <FunctionImportMapping FunctionImportName="SetAdminForUser" FunctionName="Хранилище TestSystemDBModel.SetAdminForUser" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
